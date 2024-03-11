@@ -19,9 +19,9 @@ public class ProductModel {
 
     /* Setter name */
     public void setName(String newName){
-        if (newName != null && !newName.isEmpty()){
+        // if (newName != null && !newName.isEmpty()){
             name = newName;
-        }
+        // }
     }
 
     /* Getter priceInCents */
@@ -31,9 +31,7 @@ public class ProductModel {
 
     /* Setter priceInCents */
     public void setPriceInCents(Integer newPriceInCents){
-        if (newPriceInCents >= 0){
-            priceInCents = newPriceInCents;
-        }
+        priceInCents = newPriceInCents;
     }
 
     /* Getter stock */
@@ -43,9 +41,7 @@ public class ProductModel {
 
     /* Setter stock */
     public void setStock(Integer newStock){
-        if (newStock >= 0){
-            stock = newStock;
-        }
+        stock = newStock;
     }
 
 
