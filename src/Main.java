@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import product.ProductController;
 import product.ProductModel;
@@ -6,53 +6,50 @@ import product.ProductModel;
 public class Main {
 
     public static void main(String[] args){
+        // Instância da controller
+        ProductController instanciaProductController = new ProductController();
 
-        // HashMap<String, String> payloadExample = new HashMap<String, String>();
+        // Produtos de exemplo
+        ProductModel produto1 = new ProductModel("Tomate", 400, 15);
+        ProductModel produto2 = new ProductModel("Maçã", 600, 20);
+        ProductModel produto3 = new ProductModel("Laranja", -600, 20);
 
-        // payloadExample.put("name", "bolo");
-        // payloadExample.put("priceInCents", "1200");
-        // payloadExample.put("stock", "3");
+        // barCode provávelmente não encontrado, descomentar teste logo abaixo
+        String barCodePesquisado = "ID-1";
 
-        ProductController productActions = new ProductController();
-        
-        ProductModel product = new ProductModel();
-        product.setName("bolo");
-        product.setPriceInCents( -1200);
-        product.setStock(3);
-
+        // Utilizado try catch para utilizar as custom exceptions
         try {
-            String result = productActions.create(product);
+            String resultadoCriacaoProduto1 = instanciaProductController.create(produto1);
+            System.out.println(resultadoCriacaoProduto1);
             
-            System.out.println(result);
+            String resultadoCriacaoProduto2 = instanciaProductController.create(produto2);
+            System.out.println(resultadoCriacaoProduto2);
+
+            /* Descomentar abaixo para testar a custom Exception */ 
+            // String resultadoCriacaoProduto3 = instanciaProductController.create(produto3);
+            // System.out.println(resultadoCriacaoProduto3);
+            
+            ArrayList<ProductModel> produtosGeral = instanciaProductController.read();
+            // System.out.println(Arrays.toString(produtosGeral.toArray()));
+            for (ProductModel produto : produtosGeral) {
+                System.out.println("[" + 
+                produto.getBarCode() + ", " +
+                produto.getName() + ", " +
+                produto.getPriceInCents() + ", " +
+                produto.getStock() +
+                "]");
+            }
+
+            /* Descomentar abaixo para testar a custom Exception */ 
+            // Integer precoProdutoNaoLocalizado = instanciaProductController.retrievePrice(barCodePesquisado);
+            // System.out.println(precoProdutoNaoLocalizado);
+            
+            // Obtendo o barCode gerado para o produto1 para localizar seu preço
+            Integer precoProdutoBuscado = instanciaProductController.retrievePrice(produto1.getBarCode());
+            System.out.println(precoProdutoBuscado);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-
-
-
-
-
-
-
-        // ProductModel product = new ProductModel();
-
-        /* Teste atributo barCode */
-        // System.out.println(product.getBarCode());
-        
-        /* Teste atributo name */
-        // System.out.println(product.getName());
-        // product.setName("novo nome para testes");
-        // System.out.println(product.getName());
-        
-        /* Teste atributo priceInCents */
-        // System.out.println(product.getPriceInCents());
-        // product.setPriceInCents(900);
-        // System.out.println(product.getPriceInCents());
-        
-        /* Teste atributo stock */
-        // System.out.println(product.getStock());
-        // product.setStock(6);
-        // System.out.println(product.getStock());
     }
 }
